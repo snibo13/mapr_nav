@@ -1,12 +1,18 @@
 <launch>
-  <master auto="start"/>
-    <!-- Transform publisher -->
-    <node name="transform_broad" pkg="mapr_nav" type="transform_broadcaster"/>
-
-  # Starting map server
+  <!-- Transform publisher -->
+  <node name="transform_broad" pkg="mapr_nav" type="transform_broadcaster"/>
+  
+  <node name="move_base" pkg="move_base" type="move_base" respawn="true" output="screen">
+    <rosparam file="$(find mapr_nav)/src/costmap_common_params.yml" command="load" ns="global_costmap" />
+    <rosparam file="$(find mapr_nav)/src/costmap_common_params.yml" command="load" ns="local_costmap" />
+    <rosparam file="$(find mapr_nav)/src/local_costmap.yaml" command="load" />
+    <rosparam file="$(find mapr_nav)/src/global_costmap.yml" command="load" />
+    <rosparam file="$(find mapr_nav)/src/base_local_planner_params.yml" command="load" />
+  </node>
+  <!-- # Starting map server -->
   <!-- <node name="map_server" pkg="map_server" args="$(find my_map_package)/my_map.pgm my_map_resolutuion" /> -->
-    # Lidar bring up
+    <!-- # Lidar bring up -->
     
-    # Open transforms
+    <!-- # Open transforms -->
 
 </launch>
